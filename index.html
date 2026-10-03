@@ -1,0 +1,2515 @@
+<!-- Index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raport SMART SMP IT YARSI Mataram</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    :root {
+      --bg-dark-navy: #0B132B;
+      --bg-midnight: #1C2541;
+      --accent-royal-blue: #2563EB;
+      --accent-deep-blue: #1D4ED8;
+      --accent-cyan-light: #38BDF8;
+      --gold-accent: #F59E0B;
+      --gold-hover: #D97706;
+      --text-main: #0F172A;
+      --text-sub: #475569;
+      --glass-card: rgba(255, 255, 255, 0.96);
+      --glass-sidebar: linear-gradient(180deg, #0B132B 0%, #1C2541 100%);
+      --card-border: rgba(226, 232, 240, 0.8);
+      --card-shadow: 0 10px 30px -5px rgba(11, 19, 43, 0.08), 0 4px 12px -2px rgba(11, 19, 43, 0.03);
+    }
+
+    body { 
+      background: linear-gradient(135deg, #0B132B 0%, #1C2541 50%, #0F172A 100%);
+      background-attachment: fixed;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      color: var(--text-main);
+    }
+
+    .card-dashboard { 
+      border: 1px solid var(--card-border); 
+      border-radius: 16px; 
+      background: var(--glass-card);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--card-shadow);
+      transition: all 0.25s ease;
+    }
+
+    .sidebar { 
+      min-height: 100vh; 
+      background: var(--glass-sidebar); 
+      color: #fff;
+      box-shadow: 6px 0 25px rgba(0, 0, 0, 0.25);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .sidebar a { 
+      color: #94A3B8; 
+      text-decoration: none; 
+      padding: 12px 18px; 
+      display: flex;
+      align-items: center;
+      border-radius: 10px; 
+      margin-bottom: 6px; 
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    .sidebar a:hover { 
+      color: #F8FAFC; 
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateX(3px);
+    }
+
+    .sidebar a.active { 
+      background: linear-gradient(135deg, var(--accent-royal-blue) 0%, var(--accent-deep-blue) 100%); 
+      color: #FFFFFF !important; 
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+      border-left: 4px solid var(--gold-accent);
+    }
+
+    .login-box { 
+      max-width: 440px; 
+      width: 100%; 
+      border-radius: 20px; 
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .topbar-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-radius: 14px;
+      padding: 16px 24px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-gradient-blue {
+      background: linear-gradient(135deg, #1E40AF 0%, #1D4ED8 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(30, 64, 175, 0.35);
+      transition: all 0.25s ease;
+    }
+
+    .btn-gradient-blue:hover {
+      background: linear-gradient(135deg, #1D4ED8 0%, #1E3A8A 100%);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.45);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-hover) 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .btn-gold:hover {
+      background: linear-gradient(135deg, var(--gold-hover) 0%, #B45309 100%);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.4);
+    }
+
+    .table-modern {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #E2E8F0;
+    }
+
+    .table-modern thead {
+      background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%) !important;
+      color: #FFFFFF !important;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+    }
+
+    .table-modern thead th {
+      border-bottom: 2px solid var(--gold-accent) !important;
+      padding: 12px 16px;
+    }
+
+    .nav-pills .nav-link {
+      color: #E2E8F0;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 10px 20px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-pills .nav-link.active {
+      background: linear-gradient(135deg, var(--accent-royal-blue) 0%, var(--accent-deep-blue) 100%) !important;
+      color: #FFF !important;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+      font-weight: 700;
+    }
+
+    .badge-gold {
+      background-color: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+    }
+
+    .app-logo { width: 75px; height: 75px; object-fit: contain; }
+    .sidebar-logo { width: 60px; height: 60px; object-fit: contain; }
+    .raport-logo { width: 85px; height: 85px; object-fit: contain; }
+    .img-tt-preview { max-height: 50px; object-fit: contain; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .container-fluid { padding: 0; }
+      #raportPaper { border: none !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; padding: 0 !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HALAMAN LOGIN -->
+<div id="loginPage" class="d-flex align-items-center justify-content-center min-vh-100">
+  <div class="card login-box p-4 p-md-5">
+    <div class="text-center mb-4">
+      <div class="d-inline-block p-3 rounded-circle bg-light mb-3 shadow-sm" style="border: 2px solid #E2E8F0;">
+        <img src="https://lh3.googleusercontent.com/d/1QyazHPU4O-Q6pbk_8N0hQi0kk4dJlbQH=s400" alt="Logo SMP IT YARSI Mataram" class="app-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991108.png'">
+      </div>
+      <h3 class="fw-bold text-dark mb-1" style="letter-spacing: -0.5px;">Raport SMART</h3>
+      <p class="text-muted small fw-bold text-uppercase" id="lblLoginSekolah" style="color: var(--accent-royal-blue) !important;">SMP IT YARSI Mataram</p>
+    </div>
+    <div id="loginAlert" class="alert alert-danger d-none rounded-3"></div>
+    <form onsubmit="handleLogin(event)">
+      <div class="mb-3">
+        <label class="form-label fw-bold text-secondary small">USERNAME</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-primary"></i></span>
+          <input type="text" id="loginUser" class="form-control bg-light border-start-0" placeholder="Masukkan username" required>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label fw-bold text-secondary small">PASSWORD</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-primary"></i></span>
+          <input type="password" id="loginPass" class="form-control bg-light border-start-0" placeholder="Masukkan password" required>
+        </div>
+      </div>
+      <button type="submit" id="btnLogin" class="btn btn-gradient-blue w-100 py-3 fw-bold rounded-3">Masuk ke Sistem</button>
+    </form>
+  </div>
+</div>
+
+<!-- PANEL UTAMA APLIKASI -->
+<div id="mainApp" class="container-fluid d-none">
+  <div class="row">
+    <!-- Sidebar Navigasi -->
+    <div class="col-md-2 sidebar p-3 no-print">
+      <div class="text-center mb-4 pt-2">
+        <img src="https://lh3.googleusercontent.com/d/1QyazHPU4O-Q6pbk_8N0hQi0kk4dJlbQH=s400" alt="Logo Sekolah" class="sidebar-logo mb-2" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991108.png'">
+        <h6 class="fw-bold text-white mb-1" id="sidebarNamaSekolah">SMP IT YARSI</h6>
+        <span class="badge badge-gold font-monospace px-3 py-1" id="userRoleBadge">-</span>
+      </div>
+      <hr class="border-light opacity-25">
+      <a href="#" onclick="showSection('dashboard')" id="nav-dashboard"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+      <a href="#" onclick="showSection('urlWalas')" id="nav-urlWalas"><i class="bi bi-vector-pen me-2"></i> URL Wali Kelas</a>
+      <a href="#" onclick="showSection('siswa')" id="nav-siswa"><i class="bi bi-people-fill me-2"></i> Data Siswa</a>
+      <a href="#" onclick="showSection('walasDashboard')" id="nav-walasDashboard" class="d-none text-warning"><i class="bi bi-person-workspace me-2"></i> Dashboard Walas</a>
+      <a href="#" onclick="showSection('users')" id="nav-users"><i class="bi bi-people me-2"></i> Kelola User</a>
+      <a href="#" onclick="showSection('waliMurid')" id="nav-waliMurid" class="d-none"><i class="bi bi-person-heart me-2"></i> Akun Wali Murid</a>
+      <a href="#" onclick="showSection('mapel')" id="nav-mapel"><i class="bi bi-book me-2"></i> Kelola Mapel</a>
+      <a href="#" onclick="showSection('inputNilai')" id="nav-inputNilai"><i class="bi bi-pencil-square me-2"></i> Input Nilai</a>
+      <a href="#" onclick="showSection('rekapLeger')" id="nav-rekapLeger"><i class="bi bi-table me-2"></i> Rekap Leger</a>
+      <a href="#" onclick="showSection('cetakRaport')" id="nav-cetakRaport"><i class="bi bi-printer me-2"></i> Cetak Raport</a>
+      <hr class="border-light opacity-25 mt-4">
+      <a href="#" onclick="location.reload()" class="text-danger-emphasis"><i class="bi bi-box-arrow-right me-2"></i> Keluar</a>
+    </div>
+
+    <!-- Area Konten Utama -->
+    <div class="col-md-10 p-4">
+      
+      <!-- Topbar Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4 no-print topbar-card">
+        <h5 class="m-0 fw-bold text-primary"><i class="bi bi-journal-bookmark-fill me-2" style="color: var(--gold-accent);"></i>Raport <span id="topbarJenisRaport">SMART</span> - <span id="topbarNamaSekolah">SMP IT YARSI Mataram</span></h5>
+        <div><i class="bi bi-person-circle me-1 text-primary"></i> Pengguna: <strong id="sessionNamaUser" class="text-dark">-</strong></div>
+      </div>
+
+      <!-- Section: Dashboard Admin/Umum -->
+      <div id="dashboard" class="content-section d-none">
+        <div class="p-4 rounded card-dashboard">
+          <h3 class="fw-bold text-primary">Selamat Datang di Raport SMART</h3>
+          <p class="text-muted">Sistem Manajemen Pengolahan Nilai & Cetak Raport Sekolah.</p>
+          <div class="row mt-4 g-3">
+            <div class="col-md-4">
+              <div class="card card-dashboard p-3 bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div><h5>Status Sistem</h5><small>Aktif Online</small></div>
+                  <i class="bi bi-check-circle display-5"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-dashboard p-3 bg-info text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div><h5>Tahun Ajaran</h5><small id="dashTahunAjaran">2026/2027</small></div>
+                  <i class="bi bi-calendar-check display-5"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-dashboard p-3 bg-warning text-dark">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div><h5>Semester</h5><small id="dashSemester">Ganjil</small></div>
+                  <i class="bi bi-bookmarks display-5"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: DASHBOARD URL WALI KELAS -->
+      <div id="urlWalas" class="content-section d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold text-white m-0"><i class="bi bi-vector-pen me-2"></i>Dashboard URL Tanda Tangan Wali Kelas</h4>
+        </div>
+
+        <div class="card card-dashboard p-4 mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0" id="formUrlWalasTitle"><i class="bi bi-plus-circle me-1"></i> Form Tambah/Edit URL Tanda Tangan</h5>
+            <button class="btn btn-sm btn-secondary d-none" id="btnCancelEditUrlWalas" onclick="resetFormUrlWalas()"><i class="bi bi-x-circle me-1"></i> Batal Edit</button>
+          </div>
+
+          <input type="hidden" id="uwId">
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label fw-bold">Nama Wali Kelas</label>
+              <input type="text" id="uwNama" class="form-control" placeholder="Contoh: Nurlayli Handayani, S.Pd., Gr">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Kelas Binaan</label>
+              <input type="text" id="uwKelas" class="form-control" placeholder="Contoh: 7A">
+            </div>
+            <div class="col-md-5">
+              <label class="form-label fw-bold">URL Tanda Tangan Wali Kelas (Google Drive / Direct Link)</label>
+              <input type="url" id="uwUrl" class="form-control" placeholder="https://drive.google.com/file/d/.../view">
+            </div>
+            <div class="col-12 text-end mt-3">
+              <button class="btn btn-gradient-blue px-4 py-2 fw-bold" id="btnSubmitUrlWalas" onclick="simpanDataUrlWalas()"><i class="bi bi-save me-1"></i> Simpan Data Wali Kelas</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dashboard p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0"><i class="bi bi-list-ul me-1"></i> Daftar URL Tanda Tangan Wali Kelas</h5>
+            <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadDaftarUrlWalas()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Data</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle table-modern">
+              <thead>
+                <tr class="text-center">
+                  <th width="60">No</th>
+                  <th>Nama Wali Kelas</th>
+                  <th width="120">Kelas</th>
+                  <th>URL Tanda Tangan Wali Kelas</th>
+                  <th width="180">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tblDaftarUrlWalas" class="bg-white">
+                <tr><td colspan="5" class="text-center text-muted">Memuat data URL Wali Kelas...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: DASHBOARD DATA SISWA (NIS SEBAGAI PRIMARY KEY) -->
+      <div id="siswa" class="content-section d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold text-white m-0"><i class="bi bi-person-badge me-2"></i>Dashboard Data Siswa</h4>
+        </div>
+
+        <div class="card card-dashboard p-4 mb-3" id="cardFormSiswa">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0" id="formSiswaTitle"><i class="bi bi-person-plus me-1"></i> Form Tambah Data Siswa Utama</h5>
+            <button class="btn btn-sm btn-secondary d-none" id="btnCancelEditSiswa" onclick="resetFormSiswa()"><i class="bi bi-x-circle me-1"></i> Batal Edit</button>
+          </div>
+          <input type="hidden" id="sOldNis">
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label fw-bold">NIS (Primary Key)</label>
+              <input type="text" id="sNis" class="form-control" placeholder="Contoh: 232401">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">NISN</label>
+              <input type="text" id="sNisn" class="form-control" placeholder="Contoh: 009123456">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold">Nama Lengkap Siswa</label>
+              <input type="text" id="sNama" class="form-control" placeholder="Nama Siswa">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label fw-bold">Kelas</label>
+              <input type="text" id="sKelas" class="form-control" placeholder="Cth: 7A">
+            </div>
+            <div class="col-12 text-end">
+              <button class="btn btn-gradient-blue px-4" id="btnSubmitSiswa" onclick="simpanDataSiswa()"><i class="bi bi-save me-1"></i> Simpan Data Siswa</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dashboard p-4 mb-3">
+          <div class="row g-3 align-items-center">
+            <div class="col-md-4">
+              <label class="form-label fw-bold text-primary">Filter Kelas</label>
+              <select id="selKelasDashboardSiswa" class="form-select border-primary" onchange="loadDaftarSiswaDashboard()">
+                <option value="ALL">-- Semua Kelas --</option>
+              </select>
+            </div>
+            <div class="col-md-3 align-self-end">
+              <button class="btn btn-gradient-blue fw-bold w-100" onclick="loadDaftarSiswaDashboard()">
+                <i class="bi bi-arrow-clockwise me-1"></i> Tampilkan Data Siswa
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dashboard p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0"><i class="bi bi-list-ol me-1"></i> Daftar Data Master Siswa</h5>
+            <span class="badge bg-primary fs-6" id="totalSiswaBadge">Total Siswa: 0</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle table-modern">
+              <thead>
+                <tr class="text-center">
+                  <th width="60">No</th>
+                  <th width="140">NIS (PK)</th>
+                  <th width="160">NISN</th>
+                  <th>Nama Lengkap Siswa</th>
+                  <th width="120">Kelas</th>
+                  <th width="160">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="bodyMasterSiswa" class="bg-white">
+                <tr><td colspan="6" class="text-center text-muted">Memuat data siswa...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: DASHBOARD MANAJEMEN WALI KELAS -->
+      <div id="walasDashboard" class="content-section d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold text-white m-0"><i class="bi bi-person-workspace me-2"></i>Dashboard Manajemen Wali Kelas</h4>
+          <div class="d-flex align-items-center gap-2">
+            <span class="badge badge-gold fs-6" id="badgeKelasWalas">Kelas: -</span>
+            <button class="btn btn-success fw-bold btn-sm" onclick="exportWalasToExcel()">
+              <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+            </button>
+            <button class="btn btn-warning fw-bold text-dark btn-sm" onclick="triggerImportWalasExcel()">
+              <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Excel
+            </button>
+            <input type="file" id="fileImportExcelWalas" class="d-none" accept=".xlsx, .xls" onchange="handleImportWalasExcel(event)">
+          </div>
+        </div>
+
+        <ul class="nav nav-pills mb-3" id="walas-pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-bold text-white" id="tab-kehadiran" data-bs-toggle="pill" data-bs-target="#content-kehadiran" type="button" onclick="activeWalasTab='walas_kehadiran'">
+              <i class="bi bi-calendar-check me-1"></i> Kehadiran Siswa
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-white fw-bold" id="tab-catatan" data-bs-toggle="pill" data-bs-target="#content-catatan" type="button" onclick="activeWalasTab='walas_catatan'">
+              <i class="bi bi-chat-left-text me-1"></i> Catatan Wali Kelas
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="walasTabContent">
+          <!-- SUB TAB 1: KEHADIRAN SISWA -->
+          <div class="tab-pane fade show active" id="content-kehadiran" role="tabpanel">
+            <div class="card card-dashboard p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-primary m-0"><i class="bi bi-pencil-square me-1"></i> Input Ketidakhadiran Siswa</h5>
+                <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadWalasDashboardData()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Data</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle table-modern">
+                  <thead>
+                    <tr class="text-center">
+                      <th width="50">No</th>
+                      <th width="120">NIS (PK)</th>
+                      <th width="140">NISN</th>
+                      <th>Nama Siswa</th>
+                      <th width="120">Sakit (Hari)</th>
+                      <th width="120">Izin (Hari)</th>
+                      <th width="120">Alpa (Hari)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bodyKehadiranWalas" class="bg-white">
+                    <tr><td colspan="7" class="text-center text-muted">Memuat data kelas...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-end">
+                <button class="btn btn-gradient-blue px-4 py-2 fw-bold" onclick="simpanKehadiranWalas()"><i class="bi bi-save me-1"></i> Simpan Kehadiran</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB TAB 2: CATATAN WALI KELAS -->
+          <div class="tab-pane fade" id="content-catatan" role="tabpanel">
+            <div class="card card-dashboard p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-primary m-0"><i class="bi bi-journal-text me-1"></i> Catatan Perkembangan Siswa</h5>
+                <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadWalasDashboardData()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Data</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle table-modern">
+                  <thead>
+                    <tr class="text-center">
+                      <th width="50">No</th>
+                      <th width="120">NIS (PK)</th>
+                      <th>Nama Siswa</th>
+                      <th>Catatan Wali Kelas</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bodyCatatanWalas" class="bg-white">
+                    <tr><td colspan="4" class="text-center text-muted">Memuat data kelas...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-end">
+                <button class="btn btn-gradient-blue px-4 py-2 fw-bold" onclick="simpanCatatanWalas()"><i class="bi bi-save me-1"></i> Simpan Catatan Wali Kelas</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Kelola User -->
+      <div id="users" class="content-section d-none">
+        <h4 class="fw-bold mb-3 text-white">Kelola Akun & Penugasan Pengguna</h4>
+        <div class="card card-dashboard p-4 mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0" id="formUserTitle"><i class="bi bi-person-plus me-1"></i> Form Tambah User Baru</h5>
+            <button class="btn btn-sm btn-secondary d-none" id="btnCancelEdit" onclick="resetUserForm()"><i class="bi bi-x-circle me-1"></i> Batal Edit</button>
+          </div>
+
+          <input type="hidden" id="uId">
+
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Nama Lengkap</label>
+              <input type="text" id="uNama" class="form-control" placeholder="Contoh: Ahmad, S.Pd">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Username</label>
+              <input type="text" id="uUsername" class="form-control" placeholder="username_login">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Password</label>
+              <input type="text" id="uPassword" class="form-control" placeholder="Password">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Role Utama</label>
+              <select id="uRole" class="form-select" onchange="toggleRoleOptions()">
+                <option value="Guru">Guru Pengampu</option>
+                <option value="Admin">Admin Sistem</option>
+              </select>
+            </div>
+
+            <!-- Opsi Role Guru -->
+            <div id="boxRoleGuru" class="row g-3 mt-1">
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Mata Pelajaran Diampu</label>
+                <div class="border rounded p-2 bg-light" id="boxChkMapelDinamis" style="max-height: 140px; overflow-y: auto;">
+                  <span class="text-muted small">Memuat daftar mata pelajaran...</span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Kelas Mengajar (Multi-Select)</label>
+                <div class="border rounded p-2 bg-light" id="boxChkKelasDinamis" style="max-height: 140px; overflow-y: auto;">
+                  <span class="text-muted small">Memuat daftar kelas...</span>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="p-3 bg-light rounded border">
+                  <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="chkWalas" onchange="toggleWalasSelect()">
+                    <label class="form-check-label fw-bold text-primary" for="chkWalas">Merangkap Sebagai Wali Kelas (Walas)</label>
+                  </div>
+                  <div id="boxKelasWalas" class="d-none col-md-4">
+                    <label class="form-label small fw-bold">Pilih Kelas Binaan Walas</label>
+                    <select id="selKelasWalas" class="form-select form-select-sm">
+                      <option value="">-- Pilih Kelas Walas --</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 text-end">
+              <button class="btn btn-gradient-blue px-4" id="btnSubmitUser" onclick="simpanDataUser()"><i class="bi bi-save me-1"></i> Simpan Pengguna</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dashboard p-3">
+          <h5 class="fw-bold mb-3 text-primary">Daftar Pengguna Terdaftar</h5>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle table-modern">
+              <thead class="table-dark">
+                <tr>
+                  <th>ID</th><th>Nama User</th><th>Username</th><th>Password</th><th>Role</th><th>Mapel Diampu</th><th>Kelas Diampu</th><th>Wali Kelas</th><th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tblDaftarUser">
+                <tr><td colspan="9" class="text-center">Memuat data pengguna...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: DASHBOARD KELOLA AKUN WALI MURID -->
+      <div id="waliMurid" class="content-section d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold text-white m-0"><i class="bi bi-person-heart me-2"></i>Kelola Akun Wali Murid</h4>
+          <button class="btn btn-gold fw-bold" onclick="generateAkunWaliMuridOtomatis()">
+            <i class="bi bi-magic me-1"></i> Generate Akun dari Data Siswa
+          </button>
+        </div>
+
+        <div class="card card-dashboard p-4 mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0" id="formWaliMuridTitle"><i class="bi bi-person-plus me-1"></i> Form Akun Wali Murid</h5>
+            <button class="btn btn-sm btn-secondary d-none" id="btnCancelWaliMurid" onclick="resetFormWaliMurid()"><i class="bi bi-x-circle me-1"></i> Batal Edit</button>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-md-3">
+              <label class="form-label fw-bold">NIS Siswa (PK)</label>
+              <input type="text" id="wmNis" class="form-control" placeholder="232401" onblur="autofillSiswaWM()">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">NISN Siswa</label>
+              <input type="text" id="wmNisn" class="form-control" placeholder="009123456">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Nama Siswa</label>
+              <input type="text" id="wmNamaSiswa" class="form-control" placeholder="Nama Siswa">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Kelas</label>
+              <input type="text" id="wmKelas" class="form-control" placeholder="Cth: 7A">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold">Nama Orang Tua / Wali</label>
+              <input type="text" id="wmNamaOrtu" class="form-control" placeholder="Nama Orang Tua">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Username</label>
+              <input type="text" id="wmUsername" class="form-control" placeholder="username_wm">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-bold">Password</label>
+              <input type="text" id="wmPassword" class="form-control" placeholder="Password">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              <button class="btn btn-gradient-blue w-100 py-2 fw-bold" id="btnSubmitWM" onclick="simpanDataWaliMurid()">
+                <i class="bi bi-save me-1"></i> Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dashboard p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0"><i class="bi bi-list-stars me-1"></i> Daftar Akun Wali Murid</h5>
+            <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadDaftarWaliMurid()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Data</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle table-modern">
+              <thead>
+                <tr class="text-center">
+                  <th width="50">No</th>
+                  <th width="110">NIS (PK)</th>
+                  <th width="130">NISN</th>
+                  <th>Nama Siswa</th>
+                  <th width="90">Kelas</th>
+                  <th>Nama Orang Tua</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th width="120">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tblDaftarWaliMurid" class="bg-white">
+                <tr><td colspan="9" class="text-center text-muted">Memuat data akun wali murid...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Kelola Mapel -->
+      <div id="mapel" class="content-section d-none">
+        <h4 class="fw-bold mb-3 text-white"><i class="bi bi-journal-text me-2"></i>Kelola Mata Pelajaran</h4>
+        <div class="card card-dashboard p-4 mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0" id="formMapelTitle"><i class="bi bi-plus-circle me-1"></i> Form Tambah Mata Pelajaran Baru</h5>
+            <button class="btn btn-sm btn-secondary d-none" id="btnCancelEditMapel" onclick="resetMapelForm()"><i class="bi bi-x-circle me-1"></i> Batal Edit</button>
+          </div>
+
+          <input type="hidden" id="mOldKode">
+
+          <div class="row g-3">
+            <div class="col-md-2">
+              <label class="form-label fw-bold">Kode Mapel</label>
+              <input type="text" id="mKode" class="form-control" placeholder="Cth: MTK">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-bold">Nama Mata Pelajaran</label>
+              <input type="text" id="mNama" class="form-control" placeholder="Cth: Matematika">
+            </div>
+            <div class="col-md-2">
+              <label class="form-label fw-bold">Kelompok</label>
+              <select id="mKelompok" class="form-select">
+                <option value="A">Kelompok A</option>
+                <option value="B">Kelompok B</option>
+                <option value="Muatan Lokal">Muatan Lokal</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label class="form-label fw-bold">KKM</label>
+              <input type="number" id="mKKM" class="form-control" placeholder="75">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              <button class="btn btn-gradient-blue w-100 py-2 fw-bold" id="btnSubmitMapel" onclick="simpanDataMapel()">
+                <i class="bi bi-plus-circle me-1"></i> Tambah Mapel
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-dashboard p-3">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-primary m-0"><i class="bi bi-list-stars me-1"></i> Daftar Mata Pelajaran Terdaftar</h5>
+            <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadDaftarMapel()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Data</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle table-modern">
+              <thead>
+                <tr class="text-center">
+                  <th width="60">No</th>
+                  <th width="140">Kode Mapel</th>
+                  <th>Nama Mata Pelajaran</th>
+                  <th width="150">Kelompok</th>
+                  <th width="100">KKM</th>
+                  <th width="180">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tblDaftarMapel" class="bg-white">
+                <tr><td colspan="6" class="text-center text-muted">Memuat data mata pelajaran...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Input Nilai -->
+      <div id="inputNilai" class="content-section d-none">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold m-0 text-white"><i class="bi bi-pencil-square me-2"></i>Input Nilai Siswa</h4>
+          <div>
+            <button class="btn btn-success fw-bold me-2" onclick="exportNilaiToExcel()">
+              <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+            </button>
+            <button class="btn btn-warning fw-bold text-dark" onclick="triggerImportNilaiExcel()">
+              <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Excel
+            </button>
+            <input type="file" id="fileImportExcelNilai" class="d-none" accept=".xlsx, .xls" onchange="handleImportNilaiExcel(event)">
+          </div>
+        </div>
+        
+        <div class="card card-dashboard p-3 mb-3">
+          <div class="row g-3 align-items-center">
+            <div class="col-md-3">
+              <label class="form-label fw-bold text-primary">Pilih Kelas Tujuan</label>
+              <select id="selKelasNilai" class="form-select border-primary">
+                <option value="">-- Pilih Kelas --</option>
+              </select>
+            </div>
+            <div class="col-md-3 align-self-end">
+              <button class="btn btn-gradient-blue fw-bold w-100" id="btnTampilkanDataNilai" onclick="loadSiswaNilai()">
+                <i class="bi bi-eye me-1"></i> Tampilkan Data
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-bold text-white" id="tab-umum" data-bs-toggle="pill" data-bs-target="#content-umum" type="button" onclick="activeTabKategori='umum'">Mapel Umum</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-white fw-bold" id="tab-quran" data-bs-toggle="pill" data-bs-target="#content-quran" type="button" onclick="activeTabKategori='quran'">Al-Qur'an & Hadist</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-white fw-bold" id="tab-lughoh-arab" data-bs-toggle="pill" data-bs-target="#content-lughoh-arab" type="button" onclick="activeTabKategori='lughoh_arab'">Shobahul Lughoh (Bahasa Arab)</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-white fw-bold" id="tab-lughoh-english" data-bs-toggle="pill" data-bs-target="#content-lughoh-english" type="button" onclick="activeTabKategori='lughoh_english'">Shobahul Lughoh (English)</button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+
+          <!-- FORM 1: MAPEL UMUM -->
+          <div class="tab-pane fade show active" id="content-umum" role="tabpanel">
+            <div class="card card-dashboard p-3">
+              <div class="mb-3 col-md-4">
+                <label class="form-label fw-bold text-primary">Pilih Mata Pelajaran Umum</label>
+                <select id="selMapelUmum" class="form-select border-primary" onchange="loadSiswaNilai()">
+                </select>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle table-modern">
+                  <thead>
+                    <tr>
+                      <th width="100">NIS (PK)</th>
+                      <th width="120">NISN</th>
+                      <th>Nama Siswa</th>
+                      <th>Materi / CP</th>
+                      <th width="100">Nilai</th>
+                      <th>Capaian Pembelajaran</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bodyMapelUmum" class="bg-white">
+                    <tr><td colspan="6" class="text-center text-muted">Pilih kelas dan mapel, lalu klik "Tampilkan Data".</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-end">
+                <button class="btn btn-gradient-blue px-4 py-2 fw-bold" onclick="simpanUmum()"><i class="bi bi-save me-1"></i> Simpan Mapel Umum</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM 2: AL-QUR'AN DAN HADIST -->
+          <div class="tab-pane fade" id="content-quran" role="tabpanel">
+            <div class="card card-dashboard p-3">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle table-modern">
+                  <thead class="text-center">
+                    <tr>
+                      <th>NIS (PK) / NISN / Nama</th>
+                      <th>Jumlah Hafalan</th>
+                      <th>Capaian Juz</th>
+                      <th width="90">Nilai Tahfizd</th>
+                      <th width="90">Nilai Tahsin</th>
+                      <th width="110">Jumlah Hadist</th>
+                      <th width="90">Nilai Hadist</th>
+                      <th>Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bodyQuranHadist" class="bg-white">
+                    <tr><td colspan="8" class="text-center text-muted">Pilih kelas, lalu klik "Tampilkan Data".</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-end">
+                <button class="btn btn-gradient-blue px-4 py-2 fw-bold" onclick="simpanQuran()"><i class="bi bi-save me-1"></i> Simpan Al-Qur'an & Hadist</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM 3: SHOBAHUL LUGHOH (BAHASA ARAB) -->
+          <div class="tab-pane fade" id="content-lughoh-arab" role="tabpanel">
+            <div class="card card-dashboard p-3">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle table-modern">
+                  <thead class="text-center">
+                    <tr>
+                      <th>NIS (PK) / NISN / Nama</th>
+                      <th width="160">Bahasa</th>
+                      <th width="140">Jumlah Mufradat</th>
+                      <th width="140">Jumlah Muhadatsah</th>
+                      <th width="140">Jumlah Mahfudzot</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bodyLughohArab" class="bg-white">
+                    <tr><td colspan="5" class="text-center text-muted">Pilih kelas, lalu klik "Tampilkan Data".</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-end">
+                <button class="btn btn-gradient-blue px-4 py-2 fw-bold" onclick="simpanLughohArab()"><i class="bi bi-save me-1"></i> Simpan Shobahul Lughoh (Bahasa Arab)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM 4: SHOBAHUL LUGHOH (ENGLISH) -->
+          <div class="tab-pane fade" id="content-lughoh-english" role="tabpanel">
+            <div class="card card-dashboard p-3">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle table-modern">
+                  <thead class="text-center">
+                    <tr>
+                      <th>NIS (PK) / NISN / Nama</th>
+                      <th width="140">Bahasa</th>
+                      <th>Vocabulary</th>
+                      <th>Conversation</th>
+                      <th>Wise Word</th>
+                      <th width="180">Predikat</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bodyLughohEnglish" class="bg-white">
+                    <tr><td colspan="6" class="text-center text-muted">Pilih kelas, lalu klik "Tampilkan Data".</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-end">
+                <button class="btn btn-gradient-blue px-4 py-2 fw-bold" onclick="simpanLughohEnglish()"><i class="bi bi-save me-1"></i> Simpan Shobahul Lughoh (English)</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section: Rekap Leger -->
+      <div id="rekapLeger" class="content-section d-none">
+        <h4 class="fw-bold mb-3 text-white">Rekap Leger Nilai</h4>
+        <div class="d-flex gap-2 mb-3">
+          <select id="selKelasLeger" class="form-select w-auto">
+            <option value="">-- Pilih Kelas --</option>
+          </select>
+          <button class="btn btn-light text-primary fw-bold" onclick="loadLegerData()"><i class="bi bi-arrow-clockwise me-1"></i> Tampilkan Leger</button>
+        </div>
+        <div class="card card-dashboard p-3 table-responsive">
+          <table class="table table-striped table-bordered text-center align-middle">
+            <thead class="table-dark" id="headLeger"></thead>
+            <tbody id="bodyLeger" class="bg-white"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Section: Cetak Raport Lengkap -->
+      <div id="cetakRaport" class="content-section d-none">
+        <div class="no-print mb-3">
+          <h4 class="fw-bold text-white">Cetak Raport Peserta Didik</h4>
+          <div class="d-flex gap-2 col-md-6 mt-2">
+            <input type="text" id="searchNisn" class="form-control" placeholder="Masukkan NIS atau NISN Siswa">
+            <button class="btn btn-light text-primary fw-bold" onclick="loadRaportLengkap()"><i class="bi bi-search me-1"></i> Cari</button>
+            <button class="btn btn-gold text-white fw-bold" onclick="window.print()"><i class="bi bi-printer me-1"></i> Cetak PDF</button>
+          </div>
+        </div>
+
+        <!-- LEMBAR RAPORT SMART (100% Format Desain Dipertahankan) -->
+        <div id="raportPaper" class="p-4 bg-white border rounded shadow-lg mx-auto" style="max-width: 900px;">
+          <!-- KOP RAPORT DENGAN LOGO DUA SISI -->
+          <div class="d-flex align-items-center justify-content-between border-bottom border-dark pb-2 mb-3">
+            <img src="https://lh3.googleusercontent.com/d/1QyazHPU4O-Q6pbk_8N0hQi0kk4dJlbQH=s400" alt="Logo Sekolah" class="raport-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991108.png'">
+            
+            <div class="text-center flex-grow-1 mx-2">
+              <h6 class="fw-bold m-0 text-uppercase" style="font-size: 13px;" id="rptHeaderYayasan">YAYASAN RUMAH SAKIT ISLAM NUSA TENGGARA BARAT</h6>
+              <h4 class="fw-bold m-0 text-primary" style="font-size: 20px;" id="rptHeaderSekolah">SMP IT YARSI MATARAM</h4>
+              <p class="m-0 small text-dark" style="font-size: 11px;" id="rptHeaderAlamat">Jl. TGH. Muh. Rais, Lingkar Selatan – Mataram</p>
+              <p class="m-0 small text-dark" style="font-size: 11px;">
+                E-mail: <span id="rptHeaderEmail">smpityarsi.media@gmail.com</span> | Website: <span id="rptHeaderWebsite">smpityarsimataram.sch.id</span>
+              </p>
+            </div>
+
+            <a href="https://drive.google.com/file/d/1PTaAjm2ccCNnmZAjr5ElQNnzOO7XNyXd/view?usp=drive_link" target="_blank">
+              <img src="https://lh3.googleusercontent.com/d/1PTaAjm2ccCNnmZAjr5ElQNnzOO7XNyXd=s400" alt="Logo JSIT" class="raport-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991108.png'">
+            </a>
+          </div>
+
+          <!-- JUDUL LAPORAN RAPORT -->
+          <div class="text-center mb-3">
+            <h5 class="fw-bold m-0 text-uppercase" id="rptJudulRaport">LAPORAN HASIL BELAJAR SISWA</h5>
+            <h6 class="fw-bold m-0 text-secondary" id="rptHeaderJenis">Sumatif Tengah Semester Ganjil</h6>
+            <span class="small fw-bold">Tahun Ajaran <span id="rptHeaderTA">2026/2027</span></span>
+          </div>
+          
+          <div class="row mb-3">
+            <div class="col-6">
+              <table class="table table-borderless table-sm m-0">
+                <tr><td width="120">Nama Siswa</td><td>: <strong id="rptNama">-</strong></td></tr>
+                <tr><td>NIS / NISN</td><td>: <span id="rptNisNisn">-</span></td></tr>
+              </table>
+            </div>
+            <div class="col-6">
+              <table class="table table-borderless table-sm m-0">
+                <tr><td width="120">Kelas</td><td>: <span id="rptKelas">-</span></td></tr>
+                <tr><td>Semester / TA</td><td>: <span id="rptTA">Ganjil / 2026/2027</span></td></tr>
+              </table>
+            </div>
+          </div>
+
+          <h6 class="fw-bold text-primary mb-2">A. MATA PELAJARAN UMUM</h6>
+          <table class="table table-bordered align-middle mb-3">
+            <thead class="table-light text-center">
+              <tr>
+                <th width="40">No</th>
+                <th>Mata Pelajaran</th>
+                <th width="60">KKM</th>
+                <th width="60">Nilai</th>
+                <th>Capaian</th>
+              </tr>
+            </thead>
+            <tbody id="rptBodyUmum">
+              <tr><td colspan="5" class="text-center text-muted">Cari NIS/NISN siswa untuk menampilkan data.</td></tr>
+            </tbody>
+          </table>
+
+          <h6 class="fw-bold text-primary mb-2">B. AL-QUR'AN DAN HADIST</h6>
+          <table class="table table-bordered align-middle mb-3">
+            <thead class="table-light text-center">
+              <tr>
+                <th>Jumlah Hafalan</th>
+                <th>Capaian Juz</th>
+                <th>Nilai Tahfizd</th>
+                <th>Nilai Tahsin</th>
+                <th>Jumlah Hadist</th>
+                <th>Nilai Hadist</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody id="rptBodyQuran" class="text-center">
+              <tr><td colspan="7" class="text-muted">Belum ada data.</td></tr>
+            </tbody>
+          </table>
+
+          <h6 class="fw-bold text-primary mb-2">C. SHOBAHUL LUGHOH</h6>
+          <table class="table table-bordered align-middle mb-3">
+            <thead class="table-light text-center">
+              <tr>
+                <th>Bahasa</th>
+                <th>Aspek 1</th>
+                <th>Aspek 2</th>
+                <th>Aspek 3</th>
+                <th>Predikat</th>
+              </tr>
+            </thead>
+            <tbody id="rptBodyLughoh" class="text-center">
+              <tr><td colspan="5" class="text-muted">Belum ada data.</td></tr>
+            </tbody>
+          </table>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <h6 class="fw-bold text-primary mb-2">D. KETIDAKHADIRAN</h6>
+              <table class="table table-bordered table-sm align-middle">
+                <tr><td width="160">Sakit</td><td class="text-center fw-bold" id="rptSakit">0 hari</td></tr>
+                <tr><td>Izin</td><td class="text-center fw-bold" id="rptIzin">0 hari</td></tr>
+                <tr><td>Tanpa Keterangan</td><td class="text-center fw-bold" id="rptAlpa">0 hari</td></tr>
+              </table>
+            </div>
+            <div class="col-6">
+              <h6 class="fw-bold text-primary mb-2">E. CATATAN WALI KELAS</h6>
+              <div class="border rounded p-3 h-75 bg-light italic" id="rptCatatanWalas">
+                <em>Belum ada catatan wali kelas.</em>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-4 text-center">
+            <div class="col-4">
+              <p>Orang Tua / Wali</p>
+              <br><br><br>
+              <p>_______________________</p>
+            </div>
+            <div class="col-4">
+              <p>Wali Kelas</p>
+              <div style="height: 60px;" class="d-flex align-items-center justify-content-center" id="boxRptTtWalas">
+              </div>
+              <p><strong id="rptNamaWalas">( .................................... )</strong></p>
+            </div>
+            <div class="col-4">
+              <p><span id="rptLokasiTanggal">Mataram, 28 September 2026</span><br>Kepala Sekolah</p>
+              <div style="height: 60px;" class="d-flex align-items-center justify-content-center" id="boxRptTtKepsek">
+                <img src="https://lh3.googleusercontent.com/d/1uQmeCLMMfmOfDD6LT-Zlhs4E6DzAfvZp" style="max-height: 55px; max-width: 150px; object-fit: contain;" onerror="this.style.display='none'">
+              </div>
+              <p><strong id="rptNamaKepsek">Raihan, S.S., M.Hum., Gr</strong><br><small id="rptNiyKepsek">NIY. 002.08.23</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let currentUser = null;
+  let rawUsersData = [];
+  let rawMapelData = [];
+  let masterKelasList = [];
+  let rawSiswaList = [];
+  let rawWalasData = [];
+  let rawUrlWalasData = [];
+  let activeTabKategori = 'umum';
+  let activeWalasTab = 'walas_kehadiran';
+
+  function handleLogin(e) {
+    e.preventDefault();
+    const u = document.getElementById('loginUser').value;
+    const p = document.getElementById('loginPass').value;
+    const btn = document.getElementById('btnLogin');
+    
+    btn.disabled = true;
+    btn.innerText = 'Memeriksa...';
+
+    google.script.run.withSuccessHandler(res => {
+      btn.disabled = false;
+      btn.innerText = 'Masuk ke Sistem';
+      if(res.success) {
+        currentUser = res.user;
+        document.getElementById('loginPage').classList.add('d-none');
+        document.getElementById('mainApp').classList.remove('d-none');
+        document.getElementById('sessionNamaUser').innerText = res.user.nama;
+        document.getElementById('userRoleBadge').innerText = res.user.role;
+
+        loadMasterKelasDinamis();
+        applyUserPermissions();
+
+        if (currentUser.role === 'Wali Murid') {
+          showSection('cetakRaport');
+          if (currentUser.nisSiswa) {
+            document.getElementById('searchNisn').value = currentUser.nisSiswa;
+            loadRaportLengkap();
+          }
+        } else {
+          showSection('dashboard');
+        }
+      } else {
+        const alert = document.getElementById('loginAlert');
+        alert.innerText = res.message;
+        alert.classList.remove('d-none');
+      }
+    }).processLogin(u, p);
+  }
+
+  function applyUserPermissions() {
+    const isWalas = currentUser.isWalas;
+    const role = currentUser.role;
+
+    if (role === 'Admin') {
+      document.getElementById('nav-urlWalas').classList.remove('d-none');
+      document.getElementById('nav-siswa').classList.remove('d-none');
+      document.getElementById('nav-users').classList.remove('d-none');
+      document.getElementById('nav-waliMurid').classList.remove('d-none');
+      document.getElementById('nav-mapel').classList.remove('d-none');
+      document.getElementById('nav-inputNilai').classList.remove('d-none');
+      document.getElementById('nav-rekapLeger').classList.remove('d-none');
+      document.getElementById('nav-cetakRaport').classList.remove('d-none');
+      document.getElementById('nav-walasDashboard').classList.add('d-none');
+    } else if (role === 'Guru') {
+      document.getElementById('nav-urlWalas').classList.add('d-none');
+      document.getElementById('nav-siswa').classList.add('d-none');
+      document.getElementById('nav-users').classList.add('d-none');
+      document.getElementById('nav-waliMurid').classList.add('d-none');
+      document.getElementById('nav-mapel').classList.add('d-none');
+      document.getElementById('nav-inputNilai').classList.remove('d-none');
+      document.getElementById('nav-rekapLeger').classList.remove('d-none');
+      document.getElementById('nav-cetakRaport').classList.remove('d-none');
+
+      if (isWalas) {
+        document.getElementById('nav-walasDashboard').classList.remove('d-none');
+        document.getElementById('badgeKelasWalas').innerText = 'Kelas: ' + (currentUser.kelasWalas || '-');
+      } else {
+        document.getElementById('nav-walasDashboard').classList.add('d-none');
+      }
+    } else if (role === 'Wali Murid') {
+      document.querySelectorAll('.sidebar a').forEach(a => a.classList.add('d-none'));
+      document.getElementById('nav-cetakRaport').classList.remove('d-none');
+    }
+  }
+
+  function showSection(sectionId) {
+    document.querySelectorAll('.content-section').forEach(sec => sec.classList.add('d-none'));
+    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+
+    const activeSec = document.getElementById(sectionId);
+    if(activeSec) activeSec.classList.remove('d-none');
+
+    const activeNav = document.getElementById('nav-' + sectionId);
+    if(activeNav) activeNav.classList.add('active');
+
+    if(sectionId === 'urlWalas') loadDaftarUrlWalas();
+    if(sectionId === 'siswa') loadDaftarSiswaDashboard();
+    if(sectionId === 'walasDashboard') loadWalasDashboardData();
+    if(sectionId === 'users') loadDaftarUser();
+    if(sectionId === 'waliMurid') loadDaftarWaliMurid();
+    if(sectionId === 'mapel') loadDaftarMapel();
+    if(sectionId === 'inputNilai') loadPilihanMapelDinamis();
+  }
+
+  function loadMasterKelasDinamis() {
+    google.script.run.withSuccessHandler(list => {
+      masterKelasList = list || [];
+      
+      const selSiswa = document.getElementById('selKelasDashboardSiswa');
+      selSiswa.innerHTML = '<option value="ALL">-- Semua Kelas --</option>';
+
+      const selNilai = document.getElementById('selKelasNilai');
+      selNilai.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+
+      const selLeger = document.getElementById('selKelasLeger');
+      selLeger.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+
+      const selWalasUser = document.getElementById('selKelasWalas');
+      selWalasUser.innerHTML = '<option value="">-- Pilih Kelas Walas --</option>';
+
+      masterKelasList.forEach(k => {
+        selSiswa.innerHTML += `<option value="${k}">${k}</option>`;
+        selNilai.innerHTML += `<option value="${k}">${k}</option>`;
+        selLeger.innerHTML += `<option value="${k}">${k}</option>`;
+        selWalasUser.innerHTML += `<option value="${k}">${k}</option>`;
+      });
+
+      renderCheckboxesKelas();
+    }).getDaftarKelasMaster();
+  }
+
+  function convertDriveUrlClient(url) {
+    if (!url) return '';
+    let strUrl = String(url).trim();
+    const match = strUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+      return 'https://lh3.googleusercontent.com/d/' + match[1];
+    }
+    return strUrl;
+  }
+
+  // -------------------------------------------------------------
+  // DASHBOARD URL WALI KELAS & TANDA TANGAN
+  // -------------------------------------------------------------
+  function loadDaftarUrlWalas() {
+    google.script.run.withSuccessHandler(data => {
+      rawUrlWalasData = data || [];
+      const tbody = document.getElementById('tblDaftarUrlWalas');
+      tbody.innerHTML = '';
+
+      if (rawUrlWalasData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Belum ada data URL Wali Kelas.</td></tr>';
+        return;
+      }
+
+      rawUrlWalasData.forEach((w, index) => {
+        const idStr = w.ID || '';
+        const nama = w.Nama_Wali_Kelas || '-';
+        const kelas = w.Kelas || '-';
+        const rawUrl = w.Url_Tanda_Tangan || '';
+        const directUrl = w.Direct_Url || convertDriveUrlClient(rawUrl);
+
+        const previewImg = directUrl ? `<div class="d-flex align-items-center"><img src="${directUrl}" class="img-tt-preview me-2" onerror="this.style.display='none'"><a href="${rawUrl}" target="_blank" class="small text-truncate d-inline-block" style="max-width:220px;">${rawUrl}</a></div>` : '<span class="text-muted italic">Tidak Ada URL</span>';
+
+        tbody.innerHTML += `
+          <tr>
+            <td class="text-center">${index + 1}</td>
+            <td class="fw-bold">${nama}</td>
+            <td class="text-center"><span class="badge bg-secondary">${kelas}</span></td>
+            <td>${previewImg}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-warning me-1 fw-bold" onclick="editUrlWalas('${idStr}')"><i class="bi bi-pencil-square"></i> Edit</button>
+              <button class="btn btn-sm btn-danger fw-bold" onclick="hapusUrlWalas('${idStr}')"><i class="bi bi-trash"></i> Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+    }).getDaftarUrlWalas();
+  }
+
+  function simpanDataUrlWalas() {
+    const id = document.getElementById('uwId').value;
+    const namaWalas = document.getElementById('uwNama').value.trim();
+    const kelas = document.getElementById('uwKelas').value.trim();
+    const urlTt = document.getElementById('uwUrl').value.trim();
+
+    if (!namaWalas || !kelas) {
+      alert("Nama Wali Kelas dan Kelas Wajib diisi!");
+      return;
+    }
+
+    const payload = { id, namaWalas, kelas, urlTt };
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+      resetFormUrlWalas();
+      loadDaftarUrlWalas();
+    }).simpanUrlWalas(payload);
+  }
+
+  function editUrlWalas(id) {
+    const w = rawUrlWalasData.find(item => String(item.ID) === String(id));
+    if (!w) return;
+
+    document.getElementById('uwId').value = w.ID;
+    document.getElementById('uwNama').value = w.Nama_Wali_Kelas || '';
+    document.getElementById('uwKelas').value = w.Kelas || '';
+    document.getElementById('uwUrl').value = w.Url_Tanda_Tangan || '';
+
+    document.getElementById('formUrlWalasTitle').innerHTML = '<i class="bi bi-pencil-square me-1"></i> Form Edit URL Tanda Tangan Wali Kelas';
+    document.getElementById('btnSubmitUrlWalas').innerHTML = '<i class="bi bi-check-circle me-1"></i> Perbarui Data Wali Kelas';
+    document.getElementById('btnCancelEditUrlWalas').classList.remove('d-none');
+  }
+
+  function resetFormUrlWalas() {
+    document.getElementById('uwId').value = '';
+    document.getElementById('uwNama').value = '';
+    document.getElementById('uwKelas').value = '';
+    document.getElementById('uwUrl').value = '';
+
+    document.getElementById('formUrlWalasTitle').innerHTML = '<i class="bi bi-plus-circle me-1"></i> Form Tambah/Edit URL Tanda Tangan';
+    document.getElementById('btnSubmitUrlWalas').innerHTML = '<i class="bi bi-save me-1"></i> Simpan Data Wali Kelas';
+    document.getElementById('btnCancelEditUrlWalas').classList.add('d-none');
+  }
+
+  function hapusUrlWalas(id) {
+    if (confirm("Apakah Anda yakin ingin menghapus data URL Wali Kelas ini?")) {
+      google.script.run.withSuccessHandler(res => {
+        alert(res);
+        loadDaftarUrlWalas();
+      }).hapusUrlWalas(id);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // DASHBOARD DATA SISWA (BERBASIS NIS)
+  // -------------------------------------------------------------
+  function loadDaftarSiswaDashboard() {
+    const k = document.getElementById('selKelasDashboardSiswa').value;
+    google.script.run.withSuccessHandler(list => {
+      rawSiswaList = list || [];
+      const tbody = document.getElementById('bodyMasterSiswa');
+      tbody.innerHTML = '';
+
+      document.getElementById('totalSiswaBadge').innerText = 'Total Siswa: ' + rawSiswaList.length;
+
+      if (rawSiswaList.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Data siswa tidak ditemukan.</td></tr>';
+        return;
+      }
+
+      rawSiswaList.forEach((s, idx) => {
+        const nis = s.NIS || '-';
+        const nisn = s.NISN || '-';
+        const nama = s.Nama_Siswa || s.Nama || '-';
+        const kelas = s.Kelas || '-';
+
+        tbody.innerHTML += `
+          <tr>
+            <td class="text-center">${idx + 1}</td>
+            <td class="text-center fw-bold text-primary">${nis}</td>
+            <td class="text-center">${nisn}</td>
+            <td class="fw-bold">${nama}</td>
+            <td class="text-center"><span class="badge bg-secondary">${kelas}</span></td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-warning me-1 fw-bold" onclick="editSiswa('${nis}')"><i class="bi bi-pencil-square"></i> Edit</button>
+              <button class="btn btn-sm btn-danger fw-bold" onclick="hapusSiswaAction('${nis}')"><i class="bi bi-trash"></i> Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+    }).getDaftarSiswaByKelas(k);
+  }
+
+  function simpanDataSiswa() {
+    const oldNis = document.getElementById('sOldNis').value;
+    const nis = document.getElementById('sNis').value.trim();
+    const nisn = document.getElementById('sNisn').value.trim();
+    const nama = document.getElementById('sNama').value.trim();
+    const kelas = document.getElementById('sKelas').value.trim();
+
+    if (!nis || !nama || !kelas) {
+      alert("NIS (Primary Key), Nama, dan Kelas Wajib diisi!");
+      return;
+    }
+
+    const payload = { oldNis, nis, nisn, nama, kelas };
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+      resetFormSiswa();
+      loadDaftarSiswaDashboard();
+      loadMasterKelasDinamis();
+    }).simpanSiswa(payload);
+  }
+
+  function editSiswa(nis) {
+    const s = rawSiswaList.find(item => String(item.NIS) === String(nis));
+    if (!s) return;
+
+    document.getElementById('sOldNis').value = s.NIS || '';
+    document.getElementById('sNis').value = s.NIS || '';
+    document.getElementById('sNisn').value = s.NISN || '';
+    document.getElementById('sNama').value = s.Nama_Siswa || s.Nama || '';
+    document.getElementById('sKelas').value = s.Kelas || '';
+
+    document.getElementById('formSiswaTitle').innerHTML = '<i class="bi bi-pencil-square me-1"></i> Form Edit Data Siswa Utama';
+    document.getElementById('btnSubmitSiswa').innerHTML = '<i class="bi bi-check-circle me-1"></i> Perbarui Data Siswa';
+    document.getElementById('btnCancelEditSiswa').classList.remove('d-none');
+  }
+
+  function resetFormSiswa() {
+    document.getElementById('sOldNis').value = '';
+    document.getElementById('sNis').value = '';
+    document.getElementById('sNisn').value = '';
+    document.getElementById('sNama').value = '';
+    document.getElementById('sKelas').value = '';
+
+    document.getElementById('formSiswaTitle').innerHTML = '<i class="bi bi-person-plus me-1"></i> Form Tambah Data Siswa Utama';
+    document.getElementById('btnSubmitSiswa').innerHTML = '<i class="bi bi-save me-1"></i> Simpan Data Siswa';
+    document.getElementById('btnCancelEditSiswa').classList.add('d-none');
+  }
+
+  function hapusSiswaAction(nis) {
+    if (confirm("Apakah Anda yakin ingin menghapus data siswa ini?")) {
+      google.script.run.withSuccessHandler(res => {
+        alert(res);
+        loadDaftarSiswaDashboard();
+      }).hapusSiswa(nis);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // DASHBOARD WALI KELAS
+  // -------------------------------------------------------------
+  function loadWalasDashboardData() {
+    const k = currentUser.kelasWalas;
+    if (!k) return;
+
+    google.script.run.withSuccessHandler(list => {
+      rawWalasData = list || [];
+      
+      const bodyKehadiran = document.getElementById('bodyKehadiranWalas');
+      const bodyCatatan = document.getElementById('bodyCatatanWalas');
+
+      bodyKehadiran.innerHTML = '';
+      bodyCatatan.innerHTML = '';
+
+      if (rawWalasData.length === 0) {
+        bodyKehadiran.innerHTML = '<tr><td colspan="7" class="text-center text-muted">Data siswa kelas ini kosong!</td></tr>';
+        bodyCatatan.innerHTML = '<tr><td colspan="4" class="text-center text-muted">Data siswa kelas ini kosong!</td></tr>';
+        return;
+      }
+
+      rawWalasData.forEach((item, idx) => {
+        const nis = item.NIS || '';
+        const nisn = item.NISN || '';
+        const nama = item.Nama_Siswa || '';
+
+        // Form Kehadiran
+        bodyKehadiran.innerHTML += `
+          <tr>
+            <td class="text-center">${idx + 1}</td>
+            <td class="text-center fw-bold text-primary">${nis}</td>
+            <td class="text-center">${nisn}</td>
+            <td class="fw-bold">${nama}</td>
+            <td><input type="number" class="form-control form-control-sm text-center w-sakit" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.sakit}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center w-izin" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.izin}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center w-alpa" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.alpa}"></td>
+          </tr>
+        `;
+
+        // Form Catatan
+        bodyCatatan.innerHTML += `
+          <tr>
+            <td class="text-center">${idx + 1}</td>
+            <td class="text-center fw-bold text-primary">${nis}</td>
+            <td class="fw-bold">${nama}</td>
+            <td><input type="text" class="form-control form-control-sm w-catatan" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.catatan}" placeholder="Catatan perkembangan siswa..."></td>
+          </tr>
+        `;
+      });
+    }).getDataWalasLengkap(k);
+  }
+
+  function simpanKehadiranWalas() {
+    const listSakit = document.querySelectorAll('.w-sakit');
+    const listIzin = document.querySelectorAll('.w-izin');
+    const listAlpa = document.querySelectorAll('.w-alpa');
+
+    let payload = [];
+
+    listSakit.forEach((el, index) => {
+      payload.push({
+        nis: el.getAttribute('data-nis'),
+        nisn: el.getAttribute('data-nisn'),
+        namaSiswa: el.getAttribute('data-nama'),
+        kelas: currentUser.kelasWalas,
+        sakit: Number(el.value || 0),
+        izin: Number(listIzin[index].value || 0),
+        alpa: Number(listAlpa[index].value || 0)
+      });
+    });
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+    }).simpanKehadiranBatch(payload);
+  }
+
+  function simpanCatatanWalas() {
+    const listCatatan = document.querySelectorAll('.w-catatan');
+    let payload = [];
+
+    listCatatan.forEach(el => {
+      payload.push({
+        nis: el.getAttribute('data-nis'),
+        nisn: el.getAttribute('data-nisn'),
+        namaSiswa: el.getAttribute('data-nama'),
+        kelas: currentUser.kelasWalas,
+        catatan: el.value.trim()
+      });
+    });
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+    }).simpanCatatanWalasBatch(payload);
+  }
+
+  function exportWalasToExcel() {
+    const k = currentUser.kelasWalas;
+    if (!k) {
+      alert("Kelas Wali Kelas tidak teridentifikasi!");
+      return;
+    }
+
+    if (!rawWalasData || rawWalasData.length === 0) {
+      alert("Tidak ada data untuk diexport!");
+      return;
+    }
+
+    const exportData = rawWalasData.map((item, index) => ({
+      "No": index + 1,
+      "NIS": item.NIS || '',
+      "NISN": item.NISN || '',
+      "Nama Siswa": item.Nama_Siswa || '',
+      "Kelas": k,
+      "Sakit (Hari)": item.sakit !== undefined ? item.sakit : 0,
+      "Izin (Hari)": item.izin !== undefined ? item.izin : 0,
+      "Alpa (Hari)": item.alpa !== undefined ? item.alpa : 0,
+      "Catatan Wali Kelas": item.catatan || ''
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data_Walas_" + k);
+
+    XLSX.writeFile(workbook, `Data_Wali_Kelas_${k}.xlsx`);
+  }
+
+  function triggerImportWalasExcel() {
+    document.getElementById('fileImportExcelWalas').click();
+  }
+
+  function handleImportWalasExcel(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheet = workbook.SheetNames[0];
+        const rows = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet]);
+
+        if (rows.length === 0) {
+          alert("File Excel kosong atau format tidak sesuai!");
+          return;
+        }
+
+        let payloadKehadiran = [];
+        let payloadCatatan = [];
+
+        rows.forEach(r => {
+          const nis = r["NIS"] || r["nis"] || '';
+          const nisn = r["NISN"] || r["nisn"] || '';
+          const nama = r["Nama Siswa"] || r["Nama_Siswa"] || r["nama"] || '';
+          const sakit = r["Sakit (Hari)"] !== undefined ? r["Sakit (Hari)"] : (r["sakit"] || 0);
+          const izin = r["Izin (Hari)"] !== undefined ? r["Izin (Hari)"] : (r["izin"] || 0);
+          const alpa = r["Alpa (Hari)"] !== undefined ? r["Alpa (Hari)"] : (r["alpa"] || 0);
+          const catatan = r["Catatan Wali Kelas"] || r["Catatan_Wali_Kelas"] || r["catatan"] || '';
+
+          payloadKehadiran.push({
+            nis: nis,
+            nisn: nisn,
+            namaSiswa: nama,
+            kelas: currentUser.kelasWalas,
+            sakit: sakit,
+            izin: izin,
+            alpa: alpa
+          });
+
+          payloadCatatan.push({
+            nis: nis,
+            nisn: nisn,
+            namaSiswa: nama,
+            kelas: currentUser.kelasWalas,
+            catatan: catatan
+          });
+        });
+
+        google.script.run.withSuccessHandler(resKehadiran => {
+          google.script.run.withSuccessHandler(resCatatan => {
+            alert("Berhasil mengimpor data Kehadiran dan Catatan Wali Kelas dari Excel!");
+            loadWalasDashboardData();
+          }).simpanCatatanWalasBatch(payloadCatatan);
+        }).simpanKehadiranBatch(payloadKehadiran);
+
+      } catch (err) {
+        alert("Gagal membaca file Excel: " + err.message);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    e.target.value = '';
+  }
+
+  // -------------------------------------------------------------
+  // KELOLA USER
+  // -------------------------------------------------------------
+  function loadDaftarUser() {
+    google.script.run.withSuccessHandler(data => {
+      rawUsersData = data || [];
+      const tbody = document.getElementById('tblDaftarUser');
+      tbody.innerHTML = '';
+
+      if (rawUsersData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">Belum ada data pengguna.</td></tr>';
+        return;
+      }
+
+      rawUsersData.forEach(u => {
+        const id = u.ID || '';
+        const isWalasStr = (String(u.Is_Walas) === 'true' || String(u.Is_Walas) === 'TRUE') ? `<span class="badge bg-success">Walas ${u.Kelas_Walas || ''}</span>` : '<span class="badge bg-light text-dark">Tidak</span>';
+
+        tbody.innerHTML += `
+          <tr>
+            <td><small class="text-muted font-monospace">${id}</small></td>
+            <td class="fw-bold">${u.Nama || '-'}</td>
+            <td>${u.Username || '-'}</td>
+            <td><code>${u.Password || '-'}</code></td>
+            <td><span class="badge bg-primary">${u.Role || '-'}</span></td>
+            <td><small>${u.Mapel_Akses || '-'}</small></td>
+            <td><small>${u.Kelas_Akses || '-'}</small></td>
+            <td class="text-center">${isWalasStr}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-warning me-1 fw-bold" onclick="editUser('${id}')"><i class="bi bi-pencil-square"></i> Edit</button>
+              <button class="btn btn-sm btn-danger fw-bold" onclick="hapusUser('${id}')"><i class="bi bi-trash"></i> Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+    }).getDaftarPengguna();
+  }
+
+  function renderCheckboxesKelas() {
+    const box = document.getElementById('boxChkKelasDinamis');
+    if (!box) return;
+    box.innerHTML = '';
+
+    if (masterKelasList.length === 0) {
+      box.innerHTML = '<span class="text-muted small">Belum ada data kelas master.</span>';
+      return;
+    }
+
+    masterKelasList.forEach(k => {
+      box.innerHTML += `
+        <div class="form-check form-check-inline me-3">
+          <input class="form-check-input chk-kelas-item" type="checkbox" value="${k}" id="chkK_${k}">
+          <label class="form-check-label small" for="chkK_${k}">${k}</label>
+        </div>
+      `;
+    });
+  }
+
+  function toggleRoleOptions() {
+    const r = document.getElementById('uRole').value;
+    const boxGuru = document.getElementById('boxRoleGuru');
+    if (r === 'Admin') {
+      boxGuru.classList.add('d-none');
+    } else {
+      boxGuru.classList.remove('d-none');
+    }
+  }
+
+  function toggleWalasSelect() {
+    const isChecked = document.getElementById('chkWalas').checked;
+    const box = document.getElementById('boxKelasWalas');
+    if (isChecked) {
+      box.classList.remove('d-none');
+    } else {
+      box.classList.add('d-none');
+      document.getElementById('selKelasWalas').value = '';
+    }
+  }
+
+  function simpanDataUser() {
+    const id = document.getElementById('uId').value;
+    const nama = document.getElementById('uNama').value.trim();
+    const username = document.getElementById('uUsername').value.trim();
+    const password = document.getElementById('uPassword').value.trim();
+    const role = document.getElementById('uRole').value;
+
+    if (!nama || !username || !password) {
+      alert("Nama, Username, dan Password Wajib diisi!");
+      return;
+    }
+
+    let mapelAkses = [];
+    let kelasAkses = [];
+    let isWalas = false;
+    let kelasWalas = '';
+
+    if (role === 'Guru') {
+      document.querySelectorAll('.chk-mapel-item:checked').forEach(c => mapelAkses.push(c.value));
+      document.querySelectorAll('.chk-kelas-item:checked').forEach(c => kelasAkses.push(c.value));
+      isWalas = document.getElementById('chkWalas').checked;
+      kelasWalas = isWalas ? document.getElementById('selKelasWalas').value : '';
+    }
+
+    const payload = { id, nama, username, password, role, mapelAkses, kelasAkses, isWalas, kelasWalas };
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+      resetUserForm();
+      loadDaftarUser();
+    }).simpanPengguna(payload);
+  }
+
+  function editUser(id) {
+    const u = rawUsersData.find(item => String(item.ID) === String(id));
+    if (!u) return;
+
+    document.getElementById('uId').value = u.ID;
+    document.getElementById('uNama').value = u.Nama || '';
+    document.getElementById('uUsername').value = u.Username || '';
+    document.getElementById('uPassword').value = u.Password || '';
+    document.getElementById('uRole').value = u.Role || 'Guru';
+
+    toggleRoleOptions();
+
+    if (u.Role === 'Guru') {
+      const mapels = u.Mapel_Akses ? String(u.Mapel_Akses).split(',').map(s => s.trim()) : [];
+      document.querySelectorAll('.chk-mapel-item').forEach(c => {
+        c.checked = mapels.includes(c.value);
+      });
+
+      const kelass = u.Kelas_Akses ? String(u.Kelas_Akses).split(',').map(s => s.trim()) : [];
+      document.querySelectorAll('.chk-kelas-item').forEach(c => {
+        c.checked = kelass.includes(c.value);
+      });
+
+      const isW = (String(u.Is_Walas) === 'true' || String(u.Is_Walas) === 'TRUE');
+      document.getElementById('chkWalas').checked = isW;
+      toggleWalasSelect();
+      if (isW) {
+        document.getElementById('selKelasWalas').value = u.Kelas_Walas || '';
+      }
+    }
+
+    document.getElementById('formUserTitle').innerHTML = '<i class="bi bi-pencil-square me-1"></i> Form Edit Data User';
+    document.getElementById('btnSubmitUser').innerHTML = '<i class="bi bi-check-circle me-1"></i> Perbarui User';
+    document.getElementById('btnCancelEdit').classList.remove('d-none');
+  }
+
+  function resetUserForm() {
+    document.getElementById('uId').value = '';
+    document.getElementById('uNama').value = '';
+    document.getElementById('uUsername').value = '';
+    document.getElementById('uPassword').value = '';
+    document.getElementById('uRole').value = 'Guru';
+
+    toggleRoleOptions();
+
+    document.querySelectorAll('.chk-mapel-item').forEach(c => c.checked = false);
+    document.querySelectorAll('.chk-kelas-item').forEach(c => c.checked = false);
+    document.getElementById('chkWalas').checked = false;
+    toggleWalasSelect();
+
+    document.getElementById('formUserTitle').innerHTML = '<i class="bi bi-person-plus me-1"></i> Form Tambah User Baru';
+    document.getElementById('btnSubmitUser').innerHTML = '<i class="bi bi-save me-1"></i> Simpan Pengguna';
+    document.getElementById('btnCancelEdit').classList.add('d-none');
+  }
+
+  function hapusUser(id) {
+    if (confirm("Apakah Anda yakin ingin menghapus user ini?")) {
+      google.script.run.withSuccessHandler(res => {
+        alert(res);
+        loadDaftarUser();
+      }).hapusPengguna(id);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // KELOLA AKUN WALI MURID (BERBASIS NIS)
+  // -------------------------------------------------------------
+  function loadDaftarWaliMurid() {
+    google.script.run.withSuccessHandler(data => {
+      const tbody = document.getElementById('tblDaftarWaliMurid');
+      tbody.innerHTML = '';
+
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">Belum ada akun Wali Murid.</td></tr>';
+        return;
+      }
+
+      data.forEach((w, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td class="text-center">${index + 1}</td>
+            <td class="text-center fw-bold text-primary">${w.NIS || '-'}</td>
+            <td class="text-center">${w.NISN || '-'}</td>
+            <td class="fw-bold">${w.Nama_Siswa || '-'}</td>
+            <td class="text-center"><span class="badge bg-secondary">${w.Kelas || '-'}</span></td>
+            <td>${w.Nama_Orang_Tua || '-'}</td>
+            <td><code>${w.Username || '-'}</code></td>
+            <td><code>${w.Password || '-'}</code></td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-danger fw-bold" onclick="hapusWaliMuridAction('${w.NIS}')"><i class="bi bi-trash"></i> Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+    }).getDaftarWaliMurid();
+  }
+
+  function simpanDataWaliMurid() {
+    const nis = document.getElementById('wmNis').value.trim();
+    const nisn = document.getElementById('wmNisn').value.trim();
+    const namaSiswa = document.getElementById('wmNamaSiswa').value.trim();
+    const kelas = document.getElementById('wmKelas').value.trim();
+    const namaOrangTua = document.getElementById('wmNamaOrtu').value.trim();
+    const username = document.getElementById('wmUsername').value.trim();
+    const password = document.getElementById('wmPassword').value.trim();
+
+    if (!nis || !username || !password) {
+      alert("NIS (Primary Key), Username, dan Password Wajib diisi!");
+      return;
+    }
+
+    const payload = { nis, nisn, namaSiswa, kelas, namaOrangTua, username, password };
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+      resetFormWaliMurid();
+      loadDaftarWaliMurid();
+    }).simpanWaliMurid(payload);
+  }
+
+  function resetFormWaliMurid() {
+    document.getElementById('wmNis').value = '';
+    document.getElementById('wmNisn').value = '';
+    document.getElementById('wmNamaSiswa').value = '';
+    document.getElementById('wmKelas').value = '';
+    document.getElementById('wmNamaOrtu').value = '';
+    document.getElementById('wmUsername').value = '';
+    document.getElementById('wmPassword').value = '';
+  }
+
+  function autofillSiswaWM() {
+    const nis = document.getElementById('wmNis').value.trim();
+    if (!nis) return;
+
+    google.script.run.withSuccessHandler(s => {
+      if (s) {
+        document.getElementById('wmNisn').value = s.NISN || '';
+        document.getElementById('wmNamaSiswa').value = s.Nama_Siswa || s.Nama || '';
+        document.getElementById('wmKelas').value = s.Kelas || '';
+        if (!document.getElementById('wmUsername').value) {
+          document.getElementById('wmUsername').value = 'parent_' + nis;
+          document.getElementById('wmPassword').value = 'wm' + nis;
+        }
+      }
+    }).getSiswaByKelas('ALL');
+  }
+
+  function generateAkunWaliMuridOtomatis() {
+    if (confirm("Apakah Anda yakin ingin membuat akun Wali Murid secara otomatis untuk seluruh siswa berdasarkan NIS?")) {
+      google.script.run.withSuccessHandler(res => {
+        alert(res);
+        loadDaftarWaliMurid();
+      }).generateWaliMuridAutomatic();
+    }
+  }
+
+  function hapusWaliMuridAction(nis) {
+    if (confirm("Hapus akun Wali Murid ini?")) {
+      google.script.run.withSuccessHandler(res => {
+        alert(res);
+        loadDaftarWaliMurid();
+      }).hapusWaliMurid(nis);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // KELOLA MAPEL
+  // -------------------------------------------------------------
+  function loadDaftarMapel() {
+    google.script.run.withSuccessHandler(data => {
+      rawMapelData = data || [];
+      const tbody = document.getElementById('tblDaftarMapel');
+      tbody.innerHTML = '';
+
+      if (rawMapelData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Belum ada mata pelajaran.</td></tr>';
+        return;
+      }
+
+      rawMapelData.forEach((m, idx) => {
+        tbody.innerHTML += `
+          <tr>
+            <td class="text-center">${idx + 1}</td>
+            <td class="text-center fw-bold"><span class="badge bg-secondary">${m.Kode_Mapel || '-'}</span></td>
+            <td class="fw-bold">${m.Nama_Mapel || '-'}</td>
+            <td class="text-center">${m.Kelompok || '-'}</td>
+            <td class="text-center fw-bold">${m.KKM || '-'}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-warning me-1 fw-bold" onclick="editMapel('${m.Kode_Mapel}')"><i class="bi bi-pencil-square"></i> Edit</button>
+              <button class="btn btn-sm btn-danger fw-bold" onclick="hapusMapelAction('${m.Kode_Mapel}')"><i class="bi bi-trash"></i> Hapus</button>
+            </td>
+          </tr>
+        `;
+      });
+
+      renderCheckboxesMapel();
+    }).getDaftarMapel();
+  }
+
+  function renderCheckboxesMapel() {
+    const box = document.getElementById('boxChkMapelDinamis');
+    if (!box) return;
+    box.innerHTML = '';
+
+    if (rawMapelData.length === 0) {
+      box.innerHTML = '<span class="text-muted small">Belum ada mata pelajaran terdaftar.</span>';
+      return;
+    }
+
+    rawMapelData.forEach(m => {
+      box.innerHTML += `
+        <div class="form-check form-check-inline me-3">
+          <input class="form-check-input chk-mapel-item" type="checkbox" value="${m.Kode_Mapel}" id="chkM_${m.Kode_Mapel}">
+          <label class="form-check-label small" for="chkM_${m.Kode_Mapel}">${m.Nama_Mapel} (${m.Kode_Mapel})</label>
+        </div>
+      `;
+    });
+  }
+
+  function simpanDataMapel() {
+    const oldKode = document.getElementById('mOldKode').value;
+    const kode = document.getElementById('mKode').value.trim();
+    const nama = document.getElementById('mNama').value.trim();
+    const kelompok = document.getElementById('mKelompok').value;
+    const kkm = document.getElementById('mKKM').value;
+
+    if (!kode || !nama) {
+      alert("Kode dan Nama Mapel Wajib diisi!");
+      return;
+    }
+
+    const payload = { oldKode, kode, nama, kelompok, kkm };
+
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+      resetMapelForm();
+      loadDaftarMapel();
+    }).simpanMapel(payload);
+  }
+
+  function editMapel(kode) {
+    const m = rawMapelData.find(item => String(item.Kode_Mapel) === String(kode));
+    if (!m) return;
+
+    document.getElementById('mOldKode').value = m.Kode_Mapel;
+    document.getElementById('mKode').value = m.Kode_Mapel;
+    document.getElementById('mNama').value = m.Nama_Mapel;
+    document.getElementById('mKelompok').value = m.Kelompok || 'A';
+    document.getElementById('mKKM').value = m.KKM || 75;
+
+    document.getElementById('formMapelTitle').innerHTML = '<i class="bi bi-pencil-square me-1"></i> Form Edit Mata Pelajaran';
+    document.getElementById('btnSubmitMapel').innerHTML = '<i class="bi bi-check-circle me-1"></i> Perbarui Mapel';
+    document.getElementById('btnCancelEditMapel').classList.remove('d-none');
+  }
+
+  function resetMapelForm() {
+    document.getElementById('mOldKode').value = '';
+    document.getElementById('mKode').value = '';
+    document.getElementById('mNama').value = '';
+    document.getElementById('mKelompok').value = 'A';
+    document.getElementById('mKKM').value = '';
+
+    document.getElementById('formMapelTitle').innerHTML = '<i class="bi bi-plus-circle me-1"></i> Form Tambah Mata Pelajaran Baru';
+    document.getElementById('btnSubmitMapel').innerHTML = '<i class="bi bi-plus-circle me-1"></i> Tambah Mapel';
+    document.getElementById('btnCancelEditMapel').classList.add('d-none');
+  }
+
+  function hapusMapelAction(kode) {
+    if (confirm("Hapus mata pelajaran ini?")) {
+      google.script.run.withSuccessHandler(res => {
+        alert(res);
+        loadDaftarMapel();
+      }).hapusMapel(kode);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // INPUT NILAI SISWA (BERBASIS NIS)
+  // -------------------------------------------------------------
+  function loadPilihanMapelDinamis() {
+    google.script.run.withSuccessHandler(data => {
+      rawMapelData = data || [];
+      const sel = document.getElementById('selMapelUmum');
+      sel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+
+      let filteredMapel = rawMapelData;
+      if (currentUser.role === 'Guru' && currentUser.mapelAkses.length > 0) {
+        filteredMapel = rawMapelData.filter(m => currentUser.mapelAkses.includes(String(m.Kode_Mapel)));
+      }
+
+      filteredMapel.forEach(m => {
+        sel.innerHTML += `<option value="${m.Kode_Mapel}">${m.Nama_Mapel} (${m.Kode_Mapel})</option>`;
+      });
+    }).getDaftarMapel();
+  }
+
+  function loadSiswaNilai() {
+    const k = document.getElementById('selKelasNilai').value;
+    const kodeM = document.getElementById('selMapelUmum').value;
+
+    if (!k) {
+      alert("Pilih kelas terlebih dahulu!");
+      return;
+    }
+
+    google.script.run.withSuccessHandler(list => {
+      const bodyUmum = document.getElementById('bodyMapelUmum');
+      const bodyQuran = document.getElementById('bodyQuranHadist');
+      const bodyArab = document.getElementById('bodyLughohArab');
+      const bodyEnglish = document.getElementById('bodyLughohEnglish');
+
+      bodyUmum.innerHTML = '';
+      bodyQuran.innerHTML = '';
+      bodyArab.innerHTML = '';
+      bodyEnglish.innerHTML = '';
+
+      if (!list || list.length === 0) {
+        const msg = '<tr><td colspan="8" class="text-center text-muted">Data siswa kelas ini kosong!</td></tr>';
+        bodyUmum.innerHTML = msg; bodyQuran.innerHTML = msg; bodyArab.innerHTML = msg; bodyEnglish.innerHTML = msg;
+        return;
+      }
+
+      list.forEach((item, idx) => {
+        const nis = item.NIS || '';
+        const nisn = item.NISN || '';
+        const nama = item.Nama_Siswa || '';
+
+        // Mapel Umum
+        bodyUmum.innerHTML += `
+          <tr>
+            <td class="text-center fw-bold text-primary">${nis}</td>
+            <td class="text-center">${nisn}</td>
+            <td class="fw-bold">${nama}</td>
+            <td><input type="text" class="form-control form-control-sm u-materi" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.nilaiUmum.materiCP}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center u-nilai" value="${item.nilaiUmum.nilai}"></td>
+            <td><input type="text" class="form-control form-control-sm u-capaian" value="${item.nilaiUmum.capaian}"></td>
+          </tr>
+        `;
+
+        // Quran Hadist
+        bodyQuran.innerHTML += `
+          <tr>
+            <td><strong>${nama}</strong><br><small class="text-primary fw-bold">NIS: ${nis}</small> | <small class="text-muted">NISN: ${nisn}</small></td>
+            <td><input type="text" class="form-control form-control-sm q-hafalan" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.nilaiQuran.jumlahHafalan}"></td>
+            <td><input type="text" class="form-control form-control-sm q-juz" value="${item.nilaiQuran.capaianJuz}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center q-tahfizd" value="${item.nilaiQuran.nilaiTahfizd}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center q-tahsin" value="${item.nilaiQuran.nilaiTahsin}"></td>
+            <td><input type="text" class="form-control form-control-sm q-jhadist" value="${item.nilaiQuran.jumlahHadist}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center q-nhadist" value="${item.nilaiQuran.nilaiHadist}"></td>
+            <td><input type="text" class="form-control form-control-sm q-ket" value="${item.nilaiQuran.keterangan}"></td>
+          </tr>
+        `;
+
+        // Lughoh Arab
+        bodyArab.innerHTML += `
+          <tr>
+            <td><strong>${nama}</strong><br><small class="text-primary fw-bold">NIS: ${nis}</small> | <small class="text-muted">NISN: ${nisn}</small></td>
+            <td class="text-center"><span class="badge bg-secondary">Bahasa Arab</span></td>
+            <td><input type="number" class="form-control form-control-sm text-center la-muf" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${item.nilaiLughohArab.jumlahMufradat}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center la-muh" value="${item.nilaiLughohArab.jumlahMuhadatsah}"></td>
+            <td><input type="number" class="form-control form-control-sm text-center la-mah" value="${item.nilaiLughohArab.jumlahMahfudzot}"></td>
+          </tr>
+        `;
+
+        // Lughoh English
+        const eng = item.nilaiLughohEnglish || {};
+        bodyEnglish.innerHTML += `
+          <tr>
+            <td><strong>${nama}</strong><br><small class="text-primary fw-bold">NIS: ${nis}</small> | <small class="text-muted">NISN: ${nisn}</small></td>
+            <td class="text-center"><span class="badge bg-primary">English</span></td>
+            <td><input type="text" class="form-control form-control-sm le-voc" data-nis="${nis}" data-nisn="${nisn}" data-nama="${nama}" value="${eng.vocabulary || ''}" placeholder="Cth: 50 Words"></td>
+            <td><input type="text" class="form-control form-control-sm le-conv" value="${eng.conversation || ''}" placeholder="Cth: Good"></td>
+            <td><input type="text" class="form-control form-control-sm le-wise" value="${eng.wiseWord || ''}" placeholder="Cth: 10 Quotes"></td>
+            <td><input type="text" class="form-control form-control-sm le-pred" value="${eng.predikat || ''}" placeholder="Cth: Sangat Baik (A)"></td>
+          </tr>
+        `;
+      });
+    }).getSiswaDanNilaiLengkap(k, kodeM);
+  }
+
+  function simpanUmum() {
+    const kodeM = document.getElementById('selMapelUmum').value;
+    if (!kodeM) {
+      alert("Pilih mata pelajaran umum terlebih dahulu!");
+      return;
+    }
+
+    const listMateri = document.querySelectorAll('.u-materi');
+    const listNilai = document.querySelectorAll('.u-nilai');
+    const listCapaian = document.querySelectorAll('.u-capaian');
+
+    let payload = [];
+    listMateri.forEach((el, i) => {
+      payload.push({
+        nis: el.getAttribute('data-nis'),
+        nisn: el.getAttribute('data-nisn'),
+        namaSiswa: el.getAttribute('data-nama'),
+        kodeMapel: kodeM,
+        materiCP: el.value.trim(),
+        nilai: Number(listNilai[i].value || 0),
+        capaian: listCapaian[i].value.trim()
+      });
+    });
+
+    google.script.run.withSuccessHandler(res => alert(res)).simpanNilaiUmumBatch(payload);
+  }
+
+  function simpanQuran() {
+    const listHafalan = document.querySelectorAll('.q-hafalan');
+    const listJuz = document.querySelectorAll('.q-juz');
+    const listTahfizd = document.querySelectorAll('.q-tahfizd');
+    const listTahsin = document.querySelectorAll('.q-tahsin');
+    const listJhadist = document.querySelectorAll('.q-jhadist');
+    const listNhadist = document.querySelectorAll('.q-nhadist');
+    const listKet = document.querySelectorAll('.q-ket');
+
+    let payload = [];
+    listHafalan.forEach((el, i) => {
+      payload.push({
+        nis: el.getAttribute('data-nis'),
+        nisn: el.getAttribute('data-nisn'),
+        namaSiswa: el.getAttribute('data-nama'),
+        jumlahHafalan: el.value.trim(),
+        capaianJuz: listJuz[i].value.trim(),
+        nilaiTahfizd: Number(listTahfizd[i].value || 0),
+        nilaiTahsin: Number(listTahsin[i].value || 0),
+        jumlahHadist: listJhadist[i].value.trim(),
+        nilaiHadist: Number(listNhadist[i].value || 0),
+        keterangan: listKet[i].value.trim()
+      });
+    });
+
+    google.script.run.withSuccessHandler(res => alert(res)).simpanNilaiQuranHadistBatch(payload);
+  }
+
+  function simpanLughohArab() {
+    const listMuf = document.querySelectorAll('.la-muf');
+    const listMuh = document.querySelectorAll('.la-muh');
+    const listMah = document.querySelectorAll('.la-mah');
+
+    let payload = [];
+    listMuf.forEach((el, i) => {
+      payload.push({
+        nis: el.getAttribute('data-nis'),
+        nisn: el.getAttribute('data-nisn'),
+        namaSiswa: el.getAttribute('data-nama'),
+        bahasa: 'Bahasa Arab',
+        jumlahMufradat: Number(el.value || 0),
+        jumlahMuhadatsah: Number(listMuh[i].value || 0),
+        jumlahMahfudzot: Number(listMah[i].value || 0)
+      });
+    });
+
+    google.script.run.withSuccessHandler(res => alert(res)).simpanNilaiLughohBatch(payload);
+  }
+
+  function simpanLughohEnglish() {
+    const listVoc = document.querySelectorAll('.le-voc');
+    const listConv = document.querySelectorAll('.le-conv');
+    const listWise = document.querySelectorAll('.le-wise');
+    const listPred = document.querySelectorAll('.le-pred');
+
+    let payload = [];
+    listVoc.forEach((el, i) => {
+      payload.push({
+        nis: el.getAttribute('data-nis'),
+        nisn: el.getAttribute('data-nisn'),
+        namaSiswa: el.getAttribute('data-nama'),
+        bahasa: 'English',
+        vocabulary: el.value.trim(),
+        conversation: listConv[i].value.trim(),
+        wiseWord: listWise[i].value.trim(),
+        predikat: listPred[i].value.trim()
+      });
+    });
+
+    google.script.run.withSuccessHandler(res => alert(res)).simpanNilaiLughohBatch(payload);
+  }
+
+  function exportNilaiToExcel() {
+    const k = document.getElementById('selKelasNilai').value;
+    if (!k) { alert("Pilih Kelas terlebih dahulu!"); return; }
+
+    if (activeTabKategori === 'umum') {
+      const kodeM = document.getElementById('selMapelUmum').value;
+      if (!kodeM) { alert("Pilih Mata Pelajaran!"); return; }
+      const listMateri = document.querySelectorAll('.u-materi');
+      const listNilai = document.querySelectorAll('.u-nilai');
+      const listCapaian = document.querySelectorAll('.u-capaian');
+      let data = [];
+      listMateri.forEach((el, i) => {
+        data.push({
+          NIS: el.getAttribute('data-nis'),
+          NISN: el.getAttribute('data-nisn'),
+          "Nama Siswa": el.getAttribute('data-nama'),
+          Kode_Mapel: kodeM,
+          "Materi CP": el.value,
+          Nilai: listNilai[i].value,
+          Capaian: listCapaian[i].value
+        });
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Nilai_Umum");
+      XLSX.writeFile(wb, `Nilai_Umum_${k}_${kodeM}.xlsx`);
+    } else if (activeTabKategori === 'quran') {
+      const listHafalan = document.querySelectorAll('.q-hafalan');
+      const listJuz = document.querySelectorAll('.q-juz');
+      const listTahfizd = document.querySelectorAll('.q-tahfizd');
+      const listTahsin = document.querySelectorAll('.q-tahsin');
+      const listJhadist = document.querySelectorAll('.q-jhadist');
+      const listNhadist = document.querySelectorAll('.q-nhadist');
+      const listKet = document.querySelectorAll('.q-ket');
+      let data = [];
+      listHafalan.forEach((el, i) => {
+        data.push({
+          NIS: el.getAttribute('data-nis'),
+          NISN: el.getAttribute('data-nisn'),
+          "Nama Siswa": el.getAttribute('data-nama'),
+          "Jumlah Hafalan": el.value,
+          "Capaian Juz": listJuz[i].value,
+          "Nilai Tahfizd": listTahfizd[i].value,
+          "Nilai Tahsin": listTahsin[i].value,
+          "Jumlah Hadist": listJhadist[i].value,
+          "Nilai Hadist": listNhadist[i].value,
+          Keterangan: listKet[i].value
+        });
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Quran_Hadist");
+      XLSX.writeFile(wb, `Nilai_QuranHadist_${k}.xlsx`);
+    } else if (activeTabKategori === 'lughoh_arab') {
+      const listMuf = document.querySelectorAll('.la-muf');
+      const listMuh = document.querySelectorAll('.la-muh');
+      const listMah = document.querySelectorAll('.la-mah');
+      let data = [];
+      listMuf.forEach((el, i) => {
+        data.push({
+          NIS: el.getAttribute('data-nis'),
+          NISN: el.getAttribute('data-nisn'),
+          "Nama Siswa": el.getAttribute('data-nama'),
+          Bahasa: 'Bahasa Arab',
+          "Jumlah Mufradat": el.value,
+          "Jumlah Muhadatsah": listMuh[i].value,
+          "Jumlah Mahfudzot": listMah[i].value
+        });
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Lughoh_Arab");
+      XLSX.writeFile(wb, `Nilai_Lughoh_Arab_${k}.xlsx`);
+    } else if (activeTabKategori === 'lughoh_english') {
+      const listVoc = document.querySelectorAll('.le-voc');
+      const listConv = document.querySelectorAll('.le-conv');
+      const listWise = document.querySelectorAll('.le-wise');
+      const listPred = document.querySelectorAll('.le-pred');
+      let data = [];
+      listVoc.forEach((el, i) => {
+        data.push({
+          NIS: el.getAttribute('data-nis'),
+          NISN: el.getAttribute('data-nisn'),
+          "Nama Siswa": el.getAttribute('data-nama'),
+          Bahasa: 'English',
+          Vocabulary: el.value,
+          Conversation: listConv[i].value,
+          "Wise Word": listWise[i].value,
+          Predikat: listPred[i].value
+        });
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Lughoh_English");
+      XLSX.writeFile(wb, `Nilai_Lughoh_English_${k}.xlsx`);
+    }
+  }
+
+  function triggerImportNilaiExcel() {
+    document.getElementById('fileImportExcelNilai').click();
+  }
+
+  function handleImportNilaiExcel(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const firstSheet = workbook.SheetNames[0];
+      const rows = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheet]);
+
+      if (activeTabKategori === 'umum') {
+        let payload = [];
+        rows.forEach(r => {
+          payload.push({
+            nis: r.NIS || '',
+            nisn: r.NISN || '',
+            namaSiswa: r["Nama Siswa"] || r.Nama_Siswa || '',
+            kodeMapel: r.Kode_Mapel || document.getElementById('selMapelUmum').value,
+            materiCP: r["Materi CP"] || r.Materi_CP || '',
+            nilai: Number(r.Nilai || 0),
+            capaian: r.Capaian || ''
+          });
+        });
+        google.script.run.withSuccessHandler(res => { alert(res); loadSiswaNilai(); }).simpanNilaiUmumBatch(payload);
+      } else if (activeTabKategori === 'quran') {
+        let payload = [];
+        rows.forEach(r => {
+          payload.push({
+            nis: r.NIS || '',
+            nisn: r.NISN || '',
+            namaSiswa: r["Nama Siswa"] || r.Nama_Siswa || '',
+            jumlahHafalan: r["Jumlah Hafalan"] || '',
+            capaianJuz: r["Capaian Juz"] || '',
+            nilaiTahfizd: Number(r["Nilai Tahfizd"] || 0),
+            nilaiTahsin: Number(r["Nilai Tahsin"] || 0),
+            jumlahHadist: r["Jumlah Hadist"] || '',
+            nilaiHadist: Number(r["Nilai Hadist"] || 0),
+            keterangan: r.Keterangan || ''
+          });
+        });
+        google.script.run.withSuccessHandler(res => { alert(res); loadSiswaNilai(); }).simpanNilaiQuranHadistBatch(payload);
+      } else if (activeTabKategori === 'lughoh_arab') {
+        let payload = [];
+        rows.forEach(r => {
+          payload.push({
+            nis: r.NIS || '',
+            nisn: r.NISN || '',
+            namaSiswa: r["Nama Siswa"] || r.Nama_Siswa || '',
+            bahasa: 'Bahasa Arab',
+            jumlahMufradat: Number(r["Jumlah Mufradat"] || 0),
+            jumlahMuhadatsah: Number(r["Jumlah Muhadatsah"] || 0),
+            jumlahMahfudzot: Number(r["Jumlah Mahfudzot"] || 0)
+          });
+        });
+        google.script.run.withSuccessHandler(res => { alert(res); loadSiswaNilai(); }).simpanNilaiLughohBatch(payload);
+      } else if (activeTabKategori === 'lughoh_english') {
+        let payload = [];
+        rows.forEach(r => {
+          payload.push({
+            nis: r.NIS || '',
+            nisn: r.NISN || '',
+            namaSiswa: r["Nama Siswa"] || r.Nama_Siswa || '',
+            bahasa: 'English',
+            vocabulary: r.Vocabulary || r["Vocabulary"] || '',
+            conversation: r.Conversation || r["Conversation"] || '',
+            wiseWord: r["Wise Word"] || r.Wise_Word || '',
+            predikat: r.Predikat || r["Predikat"] || ''
+          });
+        });
+        google.script.run.withSuccessHandler(res => { alert(res); loadSiswaNilai(); }).simpanNilaiLughohBatch(payload);
+      }
+    };
+    reader.readAsArrayBuffer(file);
+    e.target.value = '';
+  }
+
+  // -------------------------------------------------------------
+  // REKAP LEGER
+  // -------------------------------------------------------------
+  function loadLegerData() {
+    const k = document.getElementById('selKelasLeger').value;
+    if (!k) { alert("Pilih kelas terlebih dahulu!"); return; }
+
+    google.script.run.withSuccessHandler(res => {
+      const head = document.getElementById('headLeger');
+      const body = document.getElementById('bodyLeger');
+
+      head.innerHTML = '';
+      body.innerHTML = '';
+
+      let headHtml = `<tr><th>No</th><th>NIS (PK)</th><th>Nama Siswa</th>`;
+      res.mapelList.forEach(m => {
+        headHtml += `<th>${m.Kode_Mapel}</th>`;
+      });
+      headHtml += `<th>Total</th><th>Rata-Rata</th></tr>`;
+      head.innerHTML = headHtml;
+
+      if (!res.legerData || res.legerData.length === 0) {
+        body.innerHTML = `<tr><td colspan="${res.mapelList.length + 5}" class="text-center">Data leger kosong.</td></tr>`;
+        return;
+      }
+
+      res.legerData.forEach((row, idx) => {
+        let rowHtml = `<tr><td>${idx + 1}</td><td>${row.NIS}</td><td class="text-start fw-bold">${row.Nama}</td>`;
+        res.mapelList.forEach(m => {
+          rowHtml += `<td>${row.NilaiMapel[m.Kode_Mapel] || 0}</td>`;
+        });
+        rowHtml += `<td class="fw-bold bg-light">${row.Total}</td><td class="fw-bold bg-light text-primary">${row.RataRata}</td></tr>`;
+        body.innerHTML += rowHtml;
+      });
+    }).getLegerByKelas(k);
+  }
+
+  // -------------------------------------------------------------
+  // CETAK RAPORT LENGKAP
+  // -------------------------------------------------------------
+  function loadRaportLengkap() {
+    const identifier = document.getElementById('searchNisn').value.trim();
+    if (!identifier) { alert("Masukkan NIS atau NISN siswa!"); return; }
+
+    google.script.run.withSuccessHandler(res => {
+      if (!res.success) {
+        alert(res.message);
+        return;
+      }
+
+      const p = res.pengaturan || {};
+
+      if (p.Nama_Yayasan) document.getElementById('rptHeaderYayasan').innerText = p.Nama_Yayasan;
+      if (p.Nama_Sekolah) document.getElementById('rptHeaderSekolah').innerText = p.Nama_Sekolah;
+      if (p.Alamat_Sekolah) document.getElementById('rptHeaderAlamat').innerText = p.Alamat_Sekolah;
+      if (p.Email_Sekolah) document.getElementById('rptHeaderEmail').innerText = p.Email_Sekolah;
+      if (p.Website_Sekolah) document.getElementById('rptHeaderWebsite').innerText = p.Website_Sekolah;
+      if (p.Judul_Raport) document.getElementById('rptJudulRaport').innerText = p.Judul_Raport;
+      if (p.Jenis_Raport) document.getElementById('rptHeaderJenis').innerText = p.Jenis_Raport;
+      if (p.Tahun_Ajaran) document.getElementById('rptHeaderTA').innerText = p.Tahun_Ajaran;
+
+      document.getElementById('rptNama').innerText = res.siswa.Nama_Siswa || res.siswa.Nama || '-';
+      document.getElementById('rptNisNisn').innerText = (res.siswa.NIS || '-') + ' / ' + (res.siswa.NISN || '-');
+      document.getElementById('rptKelas').innerText = res.siswa.Kelas || '-';
+      document.getElementById('rptTA').innerText = (p.Semester || 'Ganjil') + ' / ' + (p.Tahun_Ajaran || '2026/2027');
+
+      document.getElementById('rptNamaWalas').innerText = '( ' + (res.namaWalas || '....................................') + ' )';
+      document.getElementById('rptLokasiTanggal').innerText = p.Tanggal_Raport || 'Mataram, 28 September 2026';
+      document.getElementById('rptNamaKepsek').innerText = p.Nama_Kepala_Sekolah || 'Raihan, S.S., M.Hum., Gr';
+      document.getElementById('rptNiyKepsek').innerText = 'NIY. ' + (p.NIY || '002.08.23');
+
+      const boxTtWalas = document.getElementById('boxRptTtWalas');
+      const urlTt = res.urlTtWalas || convertDriveUrlClient(res.urlTtWalas);
+      if (urlTt && urlTt.trim() !== '') {
+        boxTtWalas.innerHTML = `<img src="${urlTt}" style="max-height: 55px; max-width: 150px; object-fit: contain;" onerror="this.style.display='none'">`;
+      } else {
+        boxTtWalas.innerHTML = '';
+      }
+
+      const bUmum = document.getElementById('rptBodyUmum');
+      bUmum.innerHTML = '';
+      
+      const filteredUmum = (res.detailUmum || []).filter(m => {
+        const nm = String(m.namaMapel || '').toLowerCase().trim();
+        const isQuran = nm.includes('quran') || nm.includes('qur\'an') || nm.includes('qur’an') || nm.includes('hadist') || nm.includes('hadits');
+        const isLughoh = nm.includes('lughoh') || nm.includes('lughah') || nm.includes('shobahul');
+        return !isQuran && !isLughoh;
+      });
+
+      if (filteredUmum.length > 0) {
+        filteredUmum.forEach((m, idx) => {
+          bUmum.innerHTML += `
+            <tr>
+              <td class="text-center">${idx + 1}</td>
+              <td>${m.namaMapel}</td>
+              <td class="text-center">${m.kkm}</td>
+              <td class="text-center fw-bold">${m.nilai}</td>
+              <td class="small">${m.capaian}</td>
+            </tr>
+          `;
+        });
+      } else {
+        bUmum.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Nilai Mapel Umum belum diinput.</td></tr>';
+      }
+
+      const q = res.nilaiQuran || {};
+      document.getElementById('rptBodyQuran').innerHTML = `
+        <tr>
+          <td>${q.Jumlah_Hafalan || '-'}</td>
+          <td>${q.Capaian_Juz || '-'}</td>
+          <td><strong>${q.Nilai_Tahfizd !== undefined ? q.Nilai_Tahfizd : '-'}</strong></td>
+          <td><strong>${q.Nilai_Tahsin !== undefined ? q.Nilai_Tahsin : '-'}</strong></td>
+          <td>${q.Jumlah_Hadist || '-'}</td>
+          <td><strong>${q.Nilai_Hadist !== undefined ? q.Nilai_Hadist : '-'}</strong></td>
+          <td>${q.Keterangan || '-'}</td>
+        </tr>
+      `;
+
+      const la = res.nilaiLughohArab || {};
+      const le = res.nilaiLughohEnglish || {};
+
+      document.getElementById('rptBodyLughoh').innerHTML = `
+        <tr>
+          <td><strong>Bahasa Arab</strong></td>
+          <td>Mufradat: ${la.Jumlah_Mufradat !== undefined ? la.Jumlah_Mufradat : (la.Jumlah_Mupradat || '-')}</td>
+          <td>Muhadatsah: ${la.Jumlah_Muhadatsah || '-'}</td>
+          <td>Mahfudzot: ${la.Jumlah_Mahfudzot || '-'}</td>
+          <td><strong>${la.Predikat || '-'}</strong></td>
+        </tr>
+        <tr>
+          <td><strong>English</strong></td>
+          <td>Vocabulary: ${le.vocabulary || '-'}</td>
+          <td>Conversation: ${le.conversation || '-'}</td>
+          <td>Wise Word: ${le.wiseWord || '-'}</td>
+          <td><strong>${le.predikat || '-'}</strong></td>
+        </tr>
+      `;
+
+      document.getElementById('rptSakit').innerText = (res.kehadiran.Sakit || 0) + ' hari';
+      document.getElementById('rptIzin').innerText = (res.kehadiran.Izin || 0) + ' hari';
+      document.getElementById('rptAlpa').innerText = (res.kehadiran.Alpa || 0) + ' hari';
+
+      document.getElementById('rptCatatanWalas').innerText = res.catatan.Catatan || 'Belum ada catatan wali kelas.';
+
+    }).getRaportSiswaLengkap(identifier);
+  }
+</script>
+</body>
+</html>
